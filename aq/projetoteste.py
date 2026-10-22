@@ -1,6 +1,6 @@
 # com login agr, coloquei aq so pra salvar no git e eu saber klakakakak :) eu n mudei o codigo so adicionei a parte de login,
 # tive q add uma variavel nova, 'categoria' para conferir o CPF ou usuário, e 
-# a senha e o tipo de conta ......
+# a senha e o tipo de conta 
 odonto_dados = []
 secretaria_dados = []
 paciente_dados = []
