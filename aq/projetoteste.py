@@ -24,7 +24,7 @@ while True:
             user = input('Digite um nome de usuario: \n').lower()
             while True:
                 cpf = input('Digite seu CPF: \n')
-                if len(cpf) != 11 or not cpf.isdigit():
+                if len(cpf) != 11:
                     print('O CPF inserido esta incorreto, tente novamente!')
                 else:
                     break
@@ -36,7 +36,7 @@ while True:
                     break
             while True:
                 telefone = input('Digite seu numero de telefone: \n')
-                if len(telefone) != 11 or not telefone.isdigit():
+                if len(telefone) != 11:
                     print('Telefone inserido esta incorreto, tente novamente!')
                 else:
                     break
@@ -61,7 +61,7 @@ while True:
                 user = input('Digite um nome de usuario: \n').lower()
                 while True:
                     cpf = input('Digite seu CPF: \n')
-                    if len(cpf) != 11 or not cpf.isdigit():
+                    if len(cpf) != 11:
                         print('O CPF inserido esta incorreto, tente novamente!')
                     else:
                         break
@@ -73,13 +73,13 @@ while True:
                         break
                 while True:
                     telefone = input('Digite seu numero de telefone: \n')
-                    if len(telefone) != 11 or not telefone.isdigit():
+                    if len(telefone) != 11:
                         print('Telefone inserido esta incorreto, tente novamente!')
                     else:
                         break
                 while True:
                     num_id = input('Digite seu numero de identificacao: \n')
-                    if len(num_id) != 5 or not num_id.isdigit():
+                    if len(num_id) != 5:
                         print('Numero de identificacao incorreto, tente novamente!')
                     else:
                         break
@@ -101,13 +101,13 @@ while True:
                 user = input('Crie um nome de usuario: \n').lower()
                 while True:
                     cro = input('Digite o numero do seu CRO: \n')
-                    if not cro.isdigit() or len(cro) < 4 or len(cro) > 5:
+                    if len(cro) < 4 or len(cro) > 5:
                         print('O CRO inserido e invalido. Tente novamente!')
                     else:
                         break
                 while True:
                     cpf = input('Digite o numero do seu CPF: \n')
-                    if len(cpf) != 11 or not cpf.isdigit():
+                    if len(cpf) != 11:
                         print('CPF inserido esta incorreto. Tente novamente!')
                     else:
                         break
@@ -119,7 +119,7 @@ while True:
                         break
                 while True:
                     num_id = input('Digite seu numero de identificacao: \n')
-                    if len(num_id) != 5 or not num_id.isdigit():
+                    if len(num_id) != 5:
                         print('O numero de identificacao esta incorreto. Tente novamente!')
                     else:
                         break
@@ -129,7 +129,7 @@ while True:
                     print(i + 1, '-', esp[i])
 
                 escolha_esp = input('Escolha o numero da sua especialidade: ')
-                if not escolha_esp.isdigit() or int(escolha_esp) < 1 or int(escolha_esp) > len(esp):
+                if escolha_esp not in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']:
                     print('Especialidade invalida! Cadastro cancelado.')
                     continue
 
