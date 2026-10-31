@@ -1,4 +1,9 @@
-# CLINDONTO - sistema da clinica odontologica
+# dados q vc pediu pra por, pra n precisar cadastrar sempre
+# secretaria = Joao Vitor', joaovitor, 66666666666, 123456, 10001, 83999990001
+# secretaria = Graziela, graziela, 77777777777, 123456, 10002, 83999990002
+# usuario = Joao Vitor, joaovitor, 66666666666, 123456, 10001
+# usuario = Graziela, graziela, 77777777777, 123456, 10002
+
 
 odonto_dados = []
 secretaria_dados = []
@@ -27,10 +32,10 @@ usuario_odonto.append(['Carla Souza', 'carla', '33333333333', '123456', '3', Tru
 usuario_odonto.append(['Diego Rocha', 'diego', '44444444444', '123456', '4', True])
 usuario_odonto.append(['Eva Santos', 'eva', '55555555555', '123456', '5', True])
 
-secretaria_dados.append(['Maria Gestao', 'maria', '66666666666', '123456', '10001', '83999990001', True])
-secretaria_dados.append(['Paulo Gestao', 'paulo', '77777777777', '123456', '10002', '83999990002', True])
-usuario_secretaria.append(['Maria Gestao', 'maria', '66666666666', '123456', '10001', True])
-usuario_secretaria.append(['Paulo Gestao', 'paulo', '77777777777', '123456', '10002', True])
+secretaria_dados.append(['Joao Vitor', 'joaovitor', '66666666666', '123456', '10001', '83999990001', True])
+secretaria_dados.append(['Graziela', 'graziela', '77777777777', '123456', '10002', '83999990002', True])
+usuario_secretaria.append(['Joao Vitor', 'joaovitor', '66666666666', '123456', '10001', True])
+usuario_secretaria.append(['Graziela', 'graziela', '77777777777', '123456', '10002', True])
 
 paciente_dados.append(['Joao Adulto', 'joao', '88888888888', '123456', '83988880001', '25', '', True])
 paciente_dados.append(['Lia Crianca', 'lia', '99999999999', '123456', '83988880002', '8', '', True])
