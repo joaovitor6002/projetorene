@@ -1,260 +1,592 @@
-# com login agr, coloquei aq so pra salvar no git e eu saber klakakakak :) eu n mudei o codigo so adicionei a parte de login,
-# tive q add uma variavel nova, 'categoria' para conferir o CPF ou usuário, e 
-# a senha e o tipo de conta 
+# dados q vc pediu pra por, pra n precisar cadastrar sempre
+# secretaria = Joao Vitor', joaovitor, 66666666666, 123456, 10001, 83999990001
+# secretaria = Graziela, graziela, 77777777777, 123456, 10002, 83999990002
+# usuario = Joao Vitor, joaovitor, 66666666666, 123456, 10001
+# usuario = Graziela, graziela, 77777777777, 123456, 10002
+
+
 odonto_dados = []
 secretaria_dados = []
 paciente_dados = []
 usuario_odonto = []
 usuario_secretaria = []
 usuario_paciente = []
-esp=['ortodontia','implandontia','endodontia','clinica geral','dentistica','odontopediatria','implandontia','protese dentaria','estomalogia','harmonizaçao orofacial','bucomaxilo']
-tent=0
+consultorios = []
+consultas = []
 
+esp = ['ortodontia', 'implantodontia', 'endodontia', 'clinica geral',
+       'dentistica', 'odontopediatria', 'protese dentaria',
+       'estomatologia', 'harmonizacao orofacial', 'bucomaxilo']
+
+# dados para testar o sistema
+# as consultas e os cadastros ficam guardados nessas listas
+odonto_dados.append(['1', 'Ana Lima', '12345', 'ortodontia', True])
+odonto_dados.append(['2', 'Bruno Alves', '23456', 'implantodontia', True])
+odonto_dados.append(['3', 'Carla Souza', '34567', 'endodontia', True])
+odonto_dados.append(['4', 'Diego Rocha', '45678', 'clinica geral', True])
+odonto_dados.append(['5', 'Eva Santos', '56789', 'odontopediatria', True])
+
+usuario_odonto.append(['Ana Lima', 'ana', '11111111111', '123456', '1', True])
+usuario_odonto.append(['Bruno Alves', 'bruno', '22222222222', '123456', '2', True])
+usuario_odonto.append(['Carla Souza', 'carla', '33333333333', '123456', '3', True])
+usuario_odonto.append(['Diego Rocha', 'diego', '44444444444', '123456', '4', True])
+usuario_odonto.append(['Eva Santos', 'eva', '55555555555', '123456', '5', True])
+
+secretaria_dados.append(['Joao Vitor', 'joaovitor', '66666666666', '123456', '10001', '83999990001', True])
+secretaria_dados.append(['Graziela', 'graziela', '77777777777', '123456', '10002', '83999990002', True])
+usuario_secretaria.append(['Joao Vitor', 'joaovitor', '66666666666', '123456', '10001', True])
+usuario_secretaria.append(['Graziela', 'graziela', '77777777777', '123456', '10002', True])
+
+paciente_dados.append(['Joao Adulto', 'joao', '88888888888', '123456', '83988880001', '25', '', True])
+paciente_dados.append(['Lia Crianca', 'lia', '99999999999', '123456', '83988880002', '8', '', True])
+usuario_paciente.append(paciente_dados[0])
+usuario_paciente.append(paciente_dados[1])
+
+# menu principal
+# menu principal
 while True:
-    print('\n----MENU---- \n 1- CADASTRAR \n 2- FAZER O LOGIN \n 3- VOLTAR AO MENU PRINCIPAL ')
-    op = input('\nDigite sua opcao: ')
+    print('\n---- CLINDONTO ----')
+    print('1 - CADASTRAR')
+    print('2 - FAZER LOGIN')
+    print('3 - SAIR')
+    op = input('Digite sua opcao: ')
 
     if op == '1':
-        print('\nPRIMEIRA INFORMACAO PARA O SEU CADASTRO \n1- PACIENTE \n2- ADMINISTRADOR')
-        adm_paci = input('\nDigite sua opcao: ')
+        print('\n1 - PACIENTE')
+        print('2 - ADMINISTRADOR')
+        adm_paci = input('Digite sua opcao: ')
 
         if adm_paci == '1':
-            nome = input('\nDigite seu nome: \n').lower()
-            idade = input('Digite sua idade: \n')
-            user = input('Digite um nome de usuario: \n').lower()
+            nome = input('Digite seu nome: ').lower()
+            idade = input('Digite sua idade: ')
+            user = input('Digite seu nome de usuario: ').lower()
+
             while True:
-                cpf = input('Digite seu CPF: \n')
+                cpf = input('Digite seu CPF (11 numeros): ')
                 if len(cpf) != 11:
-                    print('O CPF inserido esta incorreto, tente novamente!')
-                else:
-                    break
-            while True:
-                senha = input('Digite sua senha (6 caracteres): ')
-                if len(senha) != 6:
-                    print('A senha inserida esta incorreta, tente novamente!')
-                else:
-                    break
-            while True:
-                telefone = input('Digite seu numero de telefone: \n')
-                if len(telefone) != 11:
-                    print('Telefone inserido esta incorreto, tente novamente!')
+                    print('CPF incorreto!')
                 else:
                     break
 
-            
-            usuario_paciente.append(nome)
-            usuario_paciente.append(user)
-            usuario_paciente.append(cpf)
-            usuario_paciente.append(senha)
-            paciente_dados.append(telefone)
-            paciente_dados.append(idade)
+            senha = input('Crie uma senha de 6 caracteres: ')
+            while len(senha) != 6:
+                print('A senha deve ter 6 caracteres!')
+                senha = input('Crie uma senha: ')
 
-            print(usuario_paciente)
-
-            print('USUARIO DO PACIENTE CADASTRADO COM SUCESSO')
+            telefone = input('Digite seu telefone: ')
+            cadastro = [nome, user, cpf, senha, telefone, idade, '', True]
+            paciente_dados.append(cadastro)
+            usuario_paciente.append(cadastro)
+            print('Paciente cadastrado com sucesso!')
 
         elif adm_paci == '2':
-            print('\nVOCE VAI SE CADASTRAR COMO: \n1-GESTAO OU SECRETARIA \n2-ODONTOLOGO(A)')
-            categoria = input('Qual sua opcao: ')
+            print('\n1 - GESTAO/SECRETARIA')
+            print('2 - ODONTOLOGO')
+            categoria = input('Escolha: ')
+
             if categoria == '1':
-                nome = input('\nDigite seu nome completo: \n').lower()
-                user = input('Digite um nome de usuario: \n').lower()
-                while True:
-                    cpf = input('Digite seu CPF: \n')
-                    if len(cpf) != 11:
-                        print('O CPF inserido esta incorreto, tente novamente!')
-                    else:
-                        break
-                while True:
-                    senha = input('Digite sua senha (6 caracteres): ')
-                    if len(senha) != 6:
-                        print('A senha inserida esta incorreta, tente novamente!')
-                    else:
-                        break
-                while True:
-                    telefone = input('Digite seu numero de telefone: \n')
-                    if len(telefone) != 11:
-                        print('Telefone inserido esta incorreto, tente novamente!')
-                    else:
-                        break
-                while True:
-                    num_id = input('Digite seu numero de identificacao: \n')
-                    if len(num_id) != 5:
-                        print('Numero de identificacao incorreto, tente novamente!')
-                    else:
-                        break
-
-                
-                usuario_secretaria.append(nome)
-                usuario_secretaria.append(user)
-                usuario_secretaria.append(cpf)
-                usuario_secretaria.append(senha)
-                usuario_secretaria.append(num_id)
-                secretaria_dados.append(telefone)
-                
-                print(usuario_secretaria)
-
-                print('USUARIO DA GESTAO/SECRETARIA CADASTRADO COM SUCESSO')
+                nome = input('Nome: ').lower()
+                user = input('Usuario: ').lower()
+                cpf = input('CPF (11 numeros): ')
+                senha = input('Senha (6 caracteres): ')
+                num_id = input('Numero de identificacao: ')
+                telefone = input('Telefone: ')
+                cadastro = [nome, user, cpf, senha, num_id, telefone, True]
+                secretaria_dados.append(cadastro)
+                usuario_secretaria.append(cadastro)
+                print('Secretaria cadastrada!')
 
             elif categoria == '2':
-                nome = input('\nDigite seu nome completo: \n')
-                user = input('Crie um nome de usuario: \n').lower()
-                while True:
-                    cro = input('Digite o numero do seu CRO: \n')
-                    if len(cro) < 4 or len(cro) > 5:
-                        print('O CRO inserido e invalido. Tente novamente!')
-                    else:
-                        break
-                while True:
-                    cpf = input('Digite o numero do seu CPF: \n')
-                    if len(cpf) != 11:
-                        print('CPF inserido esta incorreto. Tente novamente!')
-                    else:
-                        break
-                while True:
-                    senha = input('Crie uma senha de 6 caracteres: \n')
-                    if len(senha) != 6:
-                        print('A senha inserida e invalida. Tente novamente!')
-                    else:
-                        break
-                while True:
-                    num_id = input('Digite seu numero de identificacao: \n')
-                    if len(num_id) != 5:
-                        print('O numero de identificacao esta incorreto. Tente novamente!')
-                    else:
-                        break
-
+                nome = input('Nome: ')
+                user = input('Usuario: ').lower()
+                cpf = input('CPF: ')
+                senha = input('Senha (6 caracteres): ')
+                num_id = input('Numero de identificacao: ')
+                cro = input('CRO: ')
                 print('\nEspecialidades:')
                 for i in range(len(esp)):
                     print(i + 1, '-', esp[i])
+                escolha = input('Escolha a especialidade: ')
 
-                escolha_esp = input('Escolha o numero da sua especialidade: ')
-                if escolha_esp not in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11']:
-                    print('Especialidade invalida! Cadastro cancelado.')
-                    continue
-
-                especialidade = esp[int(escolha_esp) - 1]
-
-                
-                usuario_odonto.append(nome)
-                usuario_odonto.append(user)
-                usuario_odonto.append(cpf)
-                usuario_odonto.append(senha)
-                usuario_odonto.append(num_id)
-                odonto_dados.append(num_id)
-                odonto_dados.append(cro)
-                odonto_dados.append(especialidade)
-
-                print('O USUARIO DO(A) ODONTOLOGO(A) CADASTRADO COM SUCESSO')
+                if escolha and int(escolha) >= 1 and int(escolha) <= len(esp):
+                    especialidade = esp[int(escolha) - 1]
+                    odonto_dados.append([num_id, nome, cro, especialidade, True])
+                    usuario_odonto.append([nome, user, cpf, senha, num_id, True])
+                    print('Odontologo cadastrado!')
+                else:
+                    print('Especialidade invalida!')
 
             else:
                 print('Opcao invalida!')
-
         else:
             print('Opcao invalida!')
 
-    #aqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq o login
     elif op == '2':
-        print('\n---- FAZER LOGIN ----')
-        print('1 - PACIENTE')
-        print('2 - SECRETARIA/GESTAO')
-        print('3 - ODONTOLOGO(A)')
-        tipo = input('Escolha seu tipo de usuario: ')
+        print('\n1 - PACIENTE')
+        print('2 - GESTAO/SECRETARIA')
+        print('3 - ODONTOLOGO')
+        tipo = input('Tipo de usuario: ')
 
+        # login e painel do paciente
         if tipo == '1':
-            print('\n1 - Entrar com CPF')
-            print('2 - Entrar com nome de usuario')
-            metodo = input('Escolha: ')
+            print('1 - Fazer login')
+            print('2 - Esqueci usuario/senha')
+            acao = input('Escolha: ')
 
-            if metodo == '1':
-                identificador = input('Digite seu CPF: ')
-                pos = 2
-            elif metodo == '2':
-                identificador = input('Digite seu usuario: ').lower()
-                pos = 1
-            else:
+            # aqui recupera o acesso usando CPF e telefone cadastrado
+            if acao == '2':
+                cpf_rec = input('Digite seu CPF: ')
+                telefone_rec = input('Digite seu telefone cadastrado: ')
+                pos_rec = -1
+                for i in range(len(usuario_paciente)):
+                    if usuario_paciente[i][2] == cpf_rec and usuario_paciente[i][4] == telefone_rec and usuario_paciente[i][7] == True:
+                        pos_rec = i
+                        break
+                if pos_rec == -1:
+                    print('CPF ou telefone incorretos!')
+                    continue
+                novo_user = input('Digite seu novo usuario: ').lower()
+                nova_senha = input('Digite sua nova senha (6 caracteres): ')
+                while len(nova_senha) != 6:
+                    print('A senha deve ter 6 caracteres!')
+                    nova_senha = input('Digite sua nova senha: ')
+                usuario_paciente[pos_rec][1] = novo_user
+                usuario_paciente[pos_rec][3] = nova_senha
+                print('Usuario e senha atualizados!')
+                continue
+            elif acao != '1':
                 print('Opcao invalida!')
                 continue
 
-            senha_login = input('Digite sua senha: ')
-            encontrou = False
-
-            # Cada paciente ocupa 4 posicoes: nome, usuario, CPF e senha.
-            for i in range(0, len(usuario_paciente), 4):
-                if usuario_paciente[i + pos] == identificador and usuario_paciente[i + 3] == senha_login:
-                    encontrou = True
+            # limita o login a 3 tentativas
+            tentativas = 0
+            pos = -1
+            while tentativas < 3:
+                identificador = input('CPF ou usuario: ').lower()
+                senha = input('Senha: ')
+                pos = -1
+                for i in range(len(usuario_paciente)):
+                    if (usuario_paciente[i][2] == identificador or usuario_paciente[i][1] == identificador) and usuario_paciente[i][3] == senha and usuario_paciente[i][7] == True:
+                        pos = i
+                        break
+                if pos != -1:
                     break
+                tentativas += 1
+                print('Dados incorretos! Tentativas restantes:', 3 - tentativas)
+            if pos == -1:
+                print('Login bloqueado! Excedeu o limite de tentativas.')
+                continue
 
-            if encontrou:
-                print('Login do paciente realizado com sucesso!')
-            else:
-                print('CPF/usuario ou senha incorretos!')
+            print('Bem-vindo(a),', usuario_paciente[pos][0])
+            while True:
+                print('\n---- PAINEL DO PACIENTE ----')
+                print('1 - Agendar consulta')
+                print('2 - Minhas consultas')
+                print('3 - Cancelar consulta')
+                print('4 - Remarcar consulta')
+                print('5 - Ver corpo clinico')
+                print('6 - Sair da conta')
+                escolha = input('Escolha: ')
 
+                if escolha == '1':
+                    print('\nEspecialidades:')
+                    for i in range(len(esp)):
+                        print(i + 1, '-', esp[i])
+                    num_esp = input('Escolha a especialidade: ')
+
+                    if not num_esp or int(num_esp) < 1 or int(num_esp) > len(esp):
+                        print('Especialidade invalida!')
+                        continue
+                    especialidade = esp[int(num_esp) - 1]
+
+                    if especialidade == 'odontopediatria': 
+                        if int(usuario_paciente[pos][5]) > 12:
+                            print('Odontopediatria atende somente pacientes ate 12 anos.')
+                            continue
+
+                    achou = False
+                    for i in range(len(odonto_dados)):
+                        if odonto_dados[i][3] == especialidade and odonto_dados[i][4] == True:
+                            print(odonto_dados[i][0], '-', odonto_dados[i][1], '-', odonto_dados[i][3])
+                            achou = True
+                    if achou == False:
+                        print('Nao tem dentista ativo nessa especialidade.')
+                        continue
+
+                    id_dentista = input('ID do dentista: ')
+                    nome_dentista = ''
+                    dentista_ativo = False
+                    for i in range(len(odonto_dados)):
+                        if odonto_dados[i][0] == id_dentista and odonto_dados[i][3] == especialidade and odonto_dados[i][4] == True:
+                            nome_dentista = odonto_dados[i][1]
+                            dentista_ativo = True
+
+                    if dentista_ativo == False:
+                        print('Dentista nao encontrado nessa especialidade!')
+                        continue
+
+                    data = input('Dia da consulta (DD/MM/AAAA): ')
+                    horario = input('Horario (HH:MM): ')
+                    ocupado = False
+                    for i in range(len(consultas)):
+                        if consultas[i][2] == id_dentista and consultas[i][4] == data and consultas[i][5] == horario and consultas[i][6] == True:
+                            ocupado = True
+
+                    if ocupado:
+                        print('Esse dentista ja tem consulta nesse dia e horario!')
+                    else:
+                        consultas.append([usuario_paciente[pos][2], usuario_paciente[pos][0], id_dentista, nome_dentista, data, horario, True])
+                        print('Consulta agendada!')
+
+                elif escolha == '2':
+                    achou = False
+                    for i in range(len(consultas)):
+                        if consultas[i][0] == usuario_paciente[pos][2] and consultas[i][6] == True:
+                            print(i, '-', consultas[i][3], '|', consultas[i][4], '|', consultas[i][5])
+                            achou = True
+                    if achou == False:
+                        print('Voce nao tem consultas marcadas.')
+
+                elif escolha == '3' or escolha == '4':
+                    achou = False
+                    for i in range(len(consultas)):
+                        if consultas[i][0] == usuario_paciente[pos][2] and consultas[i][6] == True:
+                            print(i, '-', consultas[i][3], '|', consultas[i][4], '|', consultas[i][5])
+                            achou = True
+                    if achou == False:
+                        print('Voce nao tem consultas marcadas.')
+                        continue
+
+                    numero = input('Numero da consulta: ')
+                    if not numero or int(numero) < 0 or int(numero) >= len(consultas):
+                        print('Numero invalido!')
+                        continue
+                    numero = int(numero)
+
+                    if consultas[numero][0] != usuario_paciente[pos][2] or consultas[numero][6] == False:
+                        print('Essa consulta nao esta disponivel para voce!')
+                        continue
+
+                    if escolha == '3':
+                        consultas[numero][6] = False
+                        print('Consulta cancelada!')
+                    else:
+                        data = input('Nova data (DD/MM/AAAA): ')
+                        horario = input('Novo horario (HH:MM): ')
+                        ocupado = False
+                        for i in range(len(consultas)):
+                            if i != numero and consultas[i][2] == consultas[numero][2] and consultas[i][4] == data and consultas[i][5] == horario and consultas[i][6] == True:
+                                ocupado = True
+                        if ocupado:
+                            print('Horario ocupado! A consulta antiga continua marcada.')
+                        else:
+                            consultas[numero][6] = False
+                            consultas.append([usuario_paciente[pos][2], usuario_paciente[pos][0], consultas[numero][2], consultas[numero][3], data, horario, True])
+                            print('Consulta remarcada!')
+                elif escolha== '5':
+                    achou= False
+
+                    for i in range(len(odonto_dados)):
+                        if odonto_dados[i][4] == True:
+                            print(odonto_dados[i][4], '-', odonto_dados[i][3])
+                            achou= True
+                            
+                    if achou == False:
+                        print('Nenhum dentista disponivel')
+
+                elif escolha == '6':
+                    break
+                else:
+                    print('Opcao invalida!')
+
+        # painel da gestao e da secretaria
         elif tipo == '2':
-            print('\n1 - Entrar com CPF')
-            print('2 - Entrar com nome de usuario')
-            print('3 - Entrar com numero de identificacao')
-            metodo = input('Escolha: ')
+            print('1 - Fazer login')
+            print('2 - Esqueci usuario/senha')
+            acao = input('Escolha: ')
 
-            if metodo == '1':
-                identificador = input('Digite seu CPF: ')
-                pos = 2
-            elif metodo == '2':
-                identificador = input('Digite seu usuario: ').lower()
-                pos = 1
-            elif metodo == '3':
-                identificador = input('Digite seu numero de identificacao: ')
-                pos = 4
-            else:
+            # recupera acesso da secretaria usando CPF e telefone
+            if acao == '2':
+                cpf_rec = input('Digite seu CPF: ')
+                telefone_rec = input('Digite seu telefone cadastrado: ')
+                pos_rec = -1
+                for i in range(len(secretaria_dados)):
+                    if secretaria_dados[i][2] == cpf_rec and secretaria_dados[i][5] == telefone_rec and secretaria_dados[i][6] == True:
+                        pos_rec = i
+                        break
+                if pos_rec == -1:
+                    print('CPF ou telefone incorretos!')
+                    continue
+                novo_user = input('Digite seu novo usuario: ').lower()
+                nova_senha = input('Digite sua nova senha (6 caracteres): ')
+                while len(nova_senha) != 6:
+                    print('A senha deve ter 6 caracteres!')
+                    nova_senha = input('Digite sua nova senha: ')
+                cpf_encontrado = secretaria_dados[pos_rec][2]
+                secretaria_dados[pos_rec][1] = novo_user
+                secretaria_dados[pos_rec][3] = nova_senha
+                for i in range(len(usuario_secretaria)):
+                    if usuario_secretaria[i][2] == cpf_encontrado:
+                        usuario_secretaria[i][1] = novo_user
+                        usuario_secretaria[i][3] = nova_senha
+                print('Usuario e senha atualizados!')
+                continue
+            elif acao != '1':
                 print('Opcao invalida!')
                 continue
 
-            senha_login = input('Digite sua senha: ')
-            encontrou = False
-
-            # Cada secretaria ocupa 5 posicoes na lista.
-            for i in range(0, len(usuario_secretaria), 5):
-                if usuario_secretaria[i + pos] == identificador and usuario_secretaria[i + 3] == senha_login:
-                    encontrou = True
+            # limita o login a 3 tentativas
+            tentativas = 0
+            pos = -1
+            while tentativas < 3:
+                identificador = input('CPF, usuario ou identificacao: ').lower()
+                senha = input('Senha: ')
+                pos = -1
+                for i in range(len(usuario_secretaria)):
+                    if (usuario_secretaria[i][2] == identificador or usuario_secretaria[i][1] == identificador or usuario_secretaria[i][4] == identificador) and usuario_secretaria[i][3] == senha and usuario_secretaria[i][5] == True:
+                        pos = i
+                        break
+                if pos != -1:
                     break
+                tentativas += 1
+                print('Dados incorretos! Tentativas restantes:', 3 - tentativas)
+            if pos == -1:
+                print('Login bloqueado! Excedeu o limite de tentativas.')
+                continue
 
-            if encontrou:
-                print('Login da secretaria realizado com sucesso!')
-            else:
-                print('Dados ou senha incorretos!')
+            while True:
+                print('\n---- PAINEL DA GESTAO ----')
+                print('1 - Cadastrar dentista')
+                print('2 - Listar dentistas')
+                print('3 - Atualizar dentista')
+                print('4 - Remover dentista')
+                print('5 - Cadastrar sala')
+                print('6 - Vincular dentista a sala')
+                print('7 - Listar pacientes')
+                print('8 - Buscar paciente')
+                print('9 - Atualizar paciente/observaçoes')
+                print('10 - Agenda geral')
+                print('11 - Cancelar consulta')
+                print('12 - Sair')
+                escolha = input('Escolha: ')
 
+                if escolha == '1':
+                    nome = input('Nome: ')
+                    cro = input('CRO: ')
+                    for i in range(len(esp)):
+                        print(i + 1, '-', esp[i])
+                    num = input('Especialidade: ')
+                    if num and int(num) >= 1 and int(num) <= len(esp):
+                        id_dentista = str(len(odonto_dados) + 1)
+                        especialidade = esp[int(num) - 1]
+                        user = input('Nome de usuario do dentista: ').lower()
+                        cpf = input('CPF do dentista: ')
+                        senha = input('Senha do dentista: ')
+                        odonto_dados.append([id_dentista, nome, cro, especialidade, True])
+                        usuario_odonto.append([nome, user, cpf, senha, id_dentista, True])
+                        print('Dentista cadastrado com ID', id_dentista)
+                    else:
+                        print('Especialidade invalida!')
+
+                elif escolha == '2':
+                    for i in range(len(odonto_dados)):
+                        if odonto_dados[i][4] == True:
+                            print(odonto_dados[i][0], odonto_dados[i][1], odonto_dados[i][2], odonto_dados[i][3])
+                    print('Fim da lista.')
+
+                elif escolha == '3' or escolha == '4':
+                    id_dentista = input('ID do dentista: ')
+                    achou = False
+                    for i in range(len(odonto_dados)):
+                        if odonto_dados[i][0] == id_dentista and odonto_dados[i][4] == True:
+                            achou = True
+                            if escolha == '3':
+                                odonto_dados[i][1] = input('Novo nome: ')
+                                odonto_dados[i][2] = input('Novo CRO: ')
+                                for j in range(len(usuario_odonto)):
+                                    if usuario_odonto[j][4] == id_dentista:
+                                        usuario_odonto[j][0] = odonto_dados[i][1]
+                                for j in range(len(esp)):
+                                    print(j + 1, '-', esp[j])
+                                num = input('Nova especialidade: ')
+                                if num and int(num) >= 1 and int(num) <= len(esp):
+                                    odonto_dados[i][3] = esp[int(num) - 1]
+                                    print('Dentista atualizado!')
+                                else:
+                                    print('Especialidade invalida. Nome e CRO foram atualizados.')
+                            else:
+                                odonto_dados[i][4] = False
+                                for j in range(len(usuario_odonto)):
+                                    if usuario_odonto[j][4] == id_dentista:
+                                        usuario_odonto[j][5] = False
+                                print('Dentista removido da lista de ativos!')
+                            break
+                    if achou == False:
+                        print('Dentista nao encontrado.')
+
+                elif escolha == '5':
+                    nome_sala = input('Nome da sala: ')
+                    consultorios.append([nome_sala, '', True])
+                    print('Sala cadastrada!')
+
+                elif escolha == '6':
+                    if len(consultorios) == 0:
+                        print('Cadastre uma sala primeiro.')
+                        continue
+                    for i in range(len(consultorios)):
+                        if consultorios[i][2] == True:
+                            print(i, '-', consultorios[i][0])
+                    sala = input('Numero da sala: ')
+                    if not sala or int(sala) < 0 or int(sala) >= len(consultorios):
+                        print('Sala invalida!')
+                        continue
+                    id_dentista = input('ID do dentista: ')
+                    achou = False
+                    for i in range(len(odonto_dados)):
+                        if odonto_dados[i][0] == id_dentista and odonto_dados[i][4] == True:
+                            achou = True
+                    if achou:
+                        consultorios[int(sala)][1] = id_dentista
+                        print('Dentista vinculado a sala!')
+                    else:
+                        print('Dentista nao encontrado!')
+
+                elif escolha == '7':
+                    for i in range(len(paciente_dados)):
+                        if paciente_dados[i][7] == True:
+                            print(paciente_dados[i][0], '| CPF:', paciente_dados[i][2], '| Telefone:', paciente_dados[i][4], '| Idade:', paciente_dados[i][5], '| Obs:', paciente_dados[i][6])
+
+                elif escolha == '8':
+                    busca = input('Nome ou CPF: ').lower()
+                    achou = False
+                    for i in range(len(paciente_dados)):
+                        if paciente_dados[i][0].lower() == busca or paciente_dados[i][2] == busca:
+                            print(paciente_dados[i])
+                            achou = True
+                    if achou == False:
+                        print('Paciente nao encontrado.')
+
+                elif escolha == '9':
+                    busca = input('CPF do paciente: ')
+                    achou = False
+                    for i in range(len(paciente_dados)):
+                        if paciente_dados[i][2] == busca and paciente_dados[i][7] == True:
+                            paciente_dados[i][0] = input('Novo nome: ')
+                            paciente_dados[i][4] = input('Novo telefone: ')
+                            paciente_dados[i][5] = input('Nova idade: ')
+                            paciente_dados[i][6] = input('Observacoes/alergias: ')
+                            print('Paciente atualizado!')
+                            achou = True
+                            break
+                    if achou == False:
+                        print('Paciente nao encontrado.')
+
+                elif escolha == '10':
+                    print('\n1 - Ver todas')
+                    print('2 - Filtrar por dentista')
+                    print('3 - Filtrar por data')
+                    filtro = input('Escolha: ')
+                    valor = ''
+                    if filtro == '2':
+                        valor = input('ID do dentista: ')
+                    elif filtro == '3':
+                        valor = input('Data (DD/MM/AAAA): ')
+                    achou = False
+                    for i in range(len(consultas)):
+                        mostrar = False
+                        if consultas[i][6] == True:
+                            if filtro == '1':
+                                mostrar = True
+                            elif filtro == '2' and consultas[i][2] == valor:
+                                mostrar = True
+                            elif filtro == '3' and consultas[i][4] == valor:
+                                mostrar = True
+                        if mostrar:
+                            print(consultas[i])
+                            achou = True
+                    if achou == False:
+                        print('Nenhuma consulta encontrada.')
+
+                elif escolha == '11':
+                    for i in range(len(consultas)):
+                        if consultas[i][6] == True:
+                            print(i, '-', consultas[i])
+                    numero = input('Numero da consulta: ')
+                    if numero and int(numero) >= 0 and int(numero) < len(consultas) and consultas[int(numero)][6] == True:
+                        consultas[int(numero)][6] = False
+                        print('Consulta cancelada!')
+                    else:
+                        print('Consulta invalida!')
+
+                elif escolha == '12':
+                    break
+                else:
+                    print('Opcao invalida!')
+
+        # tela do dentista com as consultas dele
         elif tipo == '3':
-            print('\n1 - Entrar com CPF')
-            print('2 - Entrar com nome de usuario')
-            print('3 - Entrar com numero de identificacao')
-            metodo = input('Escolha: ')
+            print('1 - Fazer login')
+            print('2 - Esqueci usuario/senha')
+            acao = input('Escolha: ')
 
-            if metodo == '1':
-                identificador = input('Digite seu CPF: ')
-                pos = 2
-            elif metodo == '2':
-                identificador = input('Digite seu usuario: ').lower()
-                pos = 1
-            elif metodo == '3':
-                identificador = input('Digite seu numero de identificacao: ')
-                pos = 4
-            else:
+            # recupera acesso do dentista usando CPF e CRO
+            if acao == '2':
+                cpf_rec = input('Digite seu CPF: ')
+                cro_rec = input('Digite seu CRO: ')
+                pos_rec = -1
+                for i in range(len(usuario_odonto)):
+                    id_rec = usuario_odonto[i][4]
+                    for j in range(len(odonto_dados)):
+                        if usuario_odonto[i][2] == cpf_rec and odonto_dados[j][0] == id_rec and odonto_dados[j][2] == cro_rec and usuario_odonto[i][5] == True and odonto_dados[j][4] == True:
+                            pos_rec = i
+                            break
+                    if pos_rec != -1:
+                        break
+                if pos_rec == -1:
+                    print('CPF ou CRO incorretos!')
+                    continue
+                novo_user = input('Digite seu novo usuario: ').lower()
+                nova_senha = input('Digite sua nova senha (6 caracteres): ')
+                while len(nova_senha) != 6:
+                    print('A senha deve ter 6 caracteres!')
+                    nova_senha = input('Digite sua nova senha: ')
+                usuario_odonto[pos_rec][1] = novo_user
+                usuario_odonto[pos_rec][3] = nova_senha
+                print('Usuario e senha atualizados!')
+                continue
+            elif acao != '1':
                 print('Opcao invalida!')
                 continue
 
-            senha_login = input('Digite sua senha: ')
-            encontrou = False
-
-            # Cada odontologo ocupa 5 posicoes na lista.
-            for i in range(0, len(usuario_odonto), 5):
-                if usuario_odonto[i + pos] == identificador and usuario_odonto[i + 3] == senha_login:
-                    encontrou = True
+            # limita o login a 3 tentativas
+            tentativas = 0
+            pos = -1
+            while tentativas < 3:
+                identificador = input('CPF, usuario ou identificacao: ').lower()
+                senha = input('Senha: ')
+                pos = -1
+                for i in range(len(usuario_odonto)):
+                    if (usuario_odonto[i][2] == identificador or usuario_odonto[i][1] == identificador or usuario_odonto[i][4] == identificador) and usuario_odonto[i][3] == senha and usuario_odonto[i][5] == True:
+                        pos = i
+                        break
+                if pos != -1:
                     break
+                tentativas += 1
+                print('Dados incorretos! Tentativas restantes:', 3 - tentativas)
+            if pos == -1:
+                print('Login bloqueado! Excedeu o limite de tentativas.')
+                continue
 
-            if encontrou:
-                print('Login do odontologo realizado com sucesso!')
-            else:
-                print('Dados ou senha incorretos!')
+            id_dentista = usuario_odonto[pos][4]
+            print('Bem-vindo(a),', usuario_odonto[pos][0])
+            print('\n---- CONSULTAS DO DENTISTA ----')
+            achou = False
+            for i in range(len(consultas)):
+                if consultas[i][2] == id_dentista and consultas[i][6] == True:
+                    print('Paciente:', consultas[i][1], '| Data:', consultas[i][4], '| Horario:', consultas[i][5])
+                    achou = True
+            if achou == False:
+                print('Voce nao tem consultas marcadas.')
 
         else:
             print('Opcao invalida!')

@@ -43,7 +43,6 @@ usuario_paciente.append(paciente_dados[0])
 usuario_paciente.append(paciente_dados[1])
 
 # menu principal
-# menu principal
 while True:
     print('\n---- CLINDONTO ----')
     print('1 - CADASTRAR')
@@ -63,7 +62,7 @@ while True:
 
             while True:
                 cpf = input('Digite seu CPF (11 numeros): ')
-                if len(cpf) != 11 or not cpf.isdigit():
+                if len(cpf) != 11:
                     print('CPF incorreto!')
                 else:
                     break
@@ -108,7 +107,7 @@ while True:
                     print(i + 1, '-', esp[i])
                 escolha = input('Escolha a especialidade: ')
 
-                if escolha.isdigit() and int(escolha) >= 1 and int(escolha) <= len(esp):
+                if escolha and int(escolha) >= 1 and int(escolha) <= len(esp):
                     especialidade = esp[int(escolha) - 1]
                     odonto_dados.append([num_id, nome, cro, especialidade, True])
                     usuario_odonto.append([nome, user, cpf, senha, num_id, True])
@@ -148,7 +147,8 @@ while True:
                 print('2 - Minhas consultas')
                 print('3 - Cancelar consulta')
                 print('4 - Remarcar consulta')
-                print('5 - Sair da conta')
+                print('5 - Ver corpo clinico')
+                print('6 - Sair da conta')
                 escolha = input('Escolha: ')
 
                 if escolha == '1':
@@ -157,14 +157,15 @@ while True:
                         print(i + 1, '-', esp[i])
                     num_esp = input('Escolha a especialidade: ')
 
-                    if not num_esp.isdigit() or int(num_esp) < 1 or int(num_esp) > len(esp):
+                    if not num_esp or int(num_esp) < 1 or int(num_esp) > len(esp):
                         print('Especialidade invalida!')
                         continue
                     especialidade = esp[int(num_esp) - 1]
 
-                    if especialidade == 'odontopediatria' and int(usuario_paciente[pos][5]) > 12:
-                        print('Odontopediatria atende somente pacientes ate 12 anos.')
-                        continue
+                    if especialidade == 'odontopediatria': 
+                        if int(usuario_paciente[pos][5]) > 12:
+                            print('Odontopediatria atende somente pacientes ate 12 anos.')
+                            continue
 
                     achou = False
                     for i in range(len(odonto_dados)):
@@ -220,7 +221,7 @@ while True:
                         continue
 
                     numero = input('Numero da consulta: ')
-                    if not numero.isdigit() or int(numero) < 0 or int(numero) >= len(consultas):
+                    if not numero or int(numero) < 0 or int(numero) >= len(consultas):
                         print('Numero invalido!')
                         continue
                     numero = int(numero)
@@ -245,8 +246,18 @@ while True:
                             consultas[numero][6] = False
                             consultas.append([usuario_paciente[pos][2], usuario_paciente[pos][0], consultas[numero][2], consultas[numero][3], data, horario, True])
                             print('Consulta remarcada!')
+                elif escolha== '5':
+                    achou= False
 
-                elif escolha == '5':
+                    for i in range(len(odonto_dados)):
+                        if odonto_dados[i][4] == True:
+                            print(odonto_dados[i][4], '-', odonto_dados[i][3])
+                            achou= True
+                            
+                    if achou == False:
+                        print('Nenhum dentista disponivel')
+
+                elif escolha == '6':
                     break
                 else:
                     print('Opcao invalida!')
@@ -257,7 +268,7 @@ while True:
             senha = input('Senha: ')
             pos = -1
             for i in range(len(usuario_secretaria)):
-                if (usuario_secretaria[i][2] == identificador or usuario_secretaria[i][1] == identificador or usuario_secretaria[i][4] == identificador) and usuario_secretaria[i][3] == senha and usuario_secretaria[i][6] == True:
+                if (usuario_secretaria[i][2] == identificador or usuario_secretaria[i][1] == identificador or usuario_secretaria[i][4] == identificador) and usuario_secretaria[i][3] == senha and usuario_secretaria[i][5] == True:
                     pos = i
                     break
             if pos == -1:
@@ -274,7 +285,7 @@ while True:
                 print('6 - Vincular dentista a sala')
                 print('7 - Listar pacientes')
                 print('8 - Buscar paciente')
-                print('9 - Atualizar paciente/observacoes')
+                print('9 - Atualizar paciente/observaçoes')
                 print('10 - Agenda geral')
                 print('11 - Cancelar consulta')
                 print('12 - Sair')
@@ -286,7 +297,7 @@ while True:
                     for i in range(len(esp)):
                         print(i + 1, '-', esp[i])
                     num = input('Especialidade: ')
-                    if num.isdigit() and int(num) >= 1 and int(num) <= len(esp):
+                    if num and int(num) >= 1 and int(num) <= len(esp):
                         id_dentista = str(len(odonto_dados) + 1)
                         especialidade = esp[int(num) - 1]
                         user = input('Nome de usuario do dentista: ').lower()
@@ -319,7 +330,7 @@ while True:
                                 for j in range(len(esp)):
                                     print(j + 1, '-', esp[j])
                                 num = input('Nova especialidade: ')
-                                if num.isdigit() and int(num) >= 1 and int(num) <= len(esp):
+                                if num and int(num) >= 1 and int(num) <= len(esp):
                                     odonto_dados[i][3] = esp[int(num) - 1]
                                     print('Dentista atualizado!')
                                 else:
@@ -347,7 +358,7 @@ while True:
                         if consultorios[i][2] == True:
                             print(i, '-', consultorios[i][0])
                     sala = input('Numero da sala: ')
-                    if not sala.isdigit() or int(sala) < 0 or int(sala) >= len(consultorios):
+                    if not sala or int(sala) < 0 or int(sala) >= len(consultorios):
                         print('Sala invalida!')
                         continue
                     id_dentista = input('ID do dentista: ')
@@ -422,7 +433,7 @@ while True:
                         if consultas[i][6] == True:
                             print(i, '-', consultas[i])
                     numero = input('Numero da consulta: ')
-                    if numero.isdigit() and int(numero) >= 0 and int(numero) < len(consultas) and consultas[int(numero)][6] == True:
+                    if numero and int(numero) >= 0 and int(numero) < len(consultas) and consultas[int(numero)][6] == True:
                         consultas[int(numero)][6] = False
                         print('Consulta cancelada!')
                     else:
